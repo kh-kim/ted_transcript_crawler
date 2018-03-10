@@ -30,10 +30,10 @@ def get_transcript(url, lang = None):
                 break
             else:
                 time.sleep(INTERVAL)
-                print "retry... %d" % (i + 1)
+                print("retry... %d" % (i + 1))
         except:
             time.sleep(INTERVAL)
-            print "error. retry... %d" % (i + 1)
+            print("error. retry... %d" % (i + 1))
 
     return sentences, langs
 
@@ -46,7 +46,7 @@ def write(dir_path, title, transcripts):
             title = re.sub('\\-', ' ', title)
             title = re.sub('\\s+', ' ', title)            
             fn = dir_path + '/' + '_'.join(title.split(' ')) + '-' + lang + '.txt'
-            print fn
+            print(fn)
             f = codecs.open(fn, 'w', 'utf-8')
 
             f.write('\n'.join(sentences))
@@ -73,14 +73,14 @@ if __name__ == "__main__":
             talk_url = BASE_URL + talk.get('href') + "/transcript"
             title = talk.text.strip()
 
-            print title
-            print talk_url 
+            print(title)
+            print(talk_url)
 
             transcripts = {}
             lang = 'en'
             while True:
                 sentences, langs = get_transcript(talk_url, lang)
-                print lang, len(sentences)
+                print("%s %d" % (lang, len(sentences)))
                 time.sleep(INTERVAL)
                 
                 transcripts[lang] = sentences
